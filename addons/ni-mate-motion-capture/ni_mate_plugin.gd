@@ -255,9 +255,6 @@ func transform_bone(s: Skeleton, time: float, s_bone: String, s_track: String) -
 			s.set_bone_pose(i_bone, basis)
 			recording_animation.transform_track_insert_key(i_track, time, Vector3.ZERO, basis, Vector3.ONE)
 
-func fixbasis(basis: Basis) -> Basis:
-	return Basis(-basis.x, basis.y, -basis.z)
-
 func set_ip(new_value := "", update_config := true) -> void:
 	ip = new_value
 	update_ip_port_text()
