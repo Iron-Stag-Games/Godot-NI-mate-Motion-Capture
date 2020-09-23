@@ -2,4 +2,6 @@
 /.gitignore export-ignore
 /LICENSE.md export-ignore
 /README.md export-ignore
+/axes.png export-ignore
 /icon.png export-ignore
+/recalculate_roll.png export-ignore
