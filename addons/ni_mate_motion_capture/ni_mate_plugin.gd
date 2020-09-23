@@ -100,7 +100,7 @@ const bone_rotations := {
 }
 
 var config := ConfigFile.new()
-var dock := preload("ni_mate_dock.tscn").instance()
+var dock := preload("ni_mate_dock.escn").instance()
 var rig := dock.get_node("ViewportContainer/Viewport")
 var udp := PacketPeerUDP.new()
 var pr := PacketReader.new()
@@ -161,7 +161,7 @@ func _init() -> void:
 	set_show_bone_axes(show_bone_axes, false)
 
 func _enter_tree() -> void:
-	add_custom_type("NImate", "Node", preload("ni_mate_node.gd"), preload("icon_bone_attachment.svg"))
+	add_custom_type("NImate", "Node", preload("ni_mate_node.gd"), preload("icon_bone_track.svg"))
 	add_control_to_dock(DOCK_SLOT_RIGHT_BR, dock)
 
 func _exit_tree() -> void:
