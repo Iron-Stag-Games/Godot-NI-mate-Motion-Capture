@@ -10,7 +10,7 @@ https://ni-mate.com/download/
 
 ## Rig Compatibility
 
-All animated bones must face forwards relative to the armature.
+All animated bones must face forward relative to the armature.
 
 In Blender, you can ensure this is the case by displaying bone axes and checking if the Z axes are facing forward:
 
