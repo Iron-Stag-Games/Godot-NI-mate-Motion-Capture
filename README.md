@@ -6,7 +6,13 @@ Add an NImate node to the scene to begin - its variables should be self-explanat
 
 Requires Delicode NI mate. Use default settings with skeleton tracking enabled.
 
-https://ni-mate.com/download/
+## Delicode NI mate Downloads
+
+Windows / macOS - https://ni-mate.com/download/
+
+Ubuntu 64-bit - https://ni-mate.com/release/1.20/Delicode-NI-mate_1.20-ubuntu_amd64.deb
+
+Ubuntu 32-bit - https://ni-mate.com/release/1.20/Delicode-NI-mate_1.20-ubuntu_i386.deb
 
 ## Rig Compatibility
 
@@ -16,6 +22,6 @@ In Blender, you can ensure this is the case by displaying bone axes and checking
 
 ![](https://github.com/hoontee/godot-ni-mate-motion-capture/blob/master/axes.png?raw=true)
 
-If any of them aren't facing forward, select all bones in Edit mode and do **Armature > Bone Roll > Recalculate Roll > Global +/- X/Y/Z Axis**. You will most likely be using **Global -Y Axis** if the armature faces forward relative to the world.
+If any of them aren't facing forward, select all bones in Edit mode and do **Armature > Bone Roll > Recalculate Roll > Global +/- X/Y/Z Axis**. You'll most likely be using **Global -Y Axis** if the armature faces forward relative to the world.
 
 ![](https://github.com/hoontee/godot-ni-mate-motion-capture/blob/master/recalculate_roll.png?raw=true)
