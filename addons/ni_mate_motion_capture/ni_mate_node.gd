@@ -5,7 +5,7 @@
 #                            NI MATE MOTION CAPTURE                             #
 #           https://github.com/hoontee/godot-ni-mate-animation-editor           #
 #*******************************************************************************#
-#  Copyright (c) 2020 hoontee @ Iron Stag Games.                                #
+#  Copyright (c) 2021 hoontee @ Iron Stag Games.                                #
 #                                                                               #
 #  NMMC is free software: you can redistribute it and/or modify                 #
 #  it under the terms of the GNU Affero General Public License as published by  #

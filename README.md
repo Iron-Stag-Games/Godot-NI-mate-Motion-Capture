@@ -14,6 +14,12 @@ Ubuntu 64-bit - https://ni-mate.com/release/1.20/Delicode-NI-mate_1.20-ubuntu_am
 
 Ubuntu 32-bit - https://ni-mate.com/release/1.20/Delicode-NI-mate_1.20-ubuntu_i386.deb
 
+## Sensor Compatibility
+
+Some sensors have fewer tracking points than normal. If the rig inside the NI mate viewport looks mangled, try enabling **Rig > Simple**:
+
+![](https://github.com/hoontee/godot-ni-mate-motion-capture/blob/master/simple.png?raw=true)
+
 ## Rig Compatibility
 
 All animated bones must face forward relative to the armature.
