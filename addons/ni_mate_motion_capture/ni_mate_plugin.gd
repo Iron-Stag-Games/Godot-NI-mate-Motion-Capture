@@ -5,7 +5,7 @@
 #                            NI MATE MOTION CAPTURE                             #
 #           https://github.com/hoontee/godot-ni-mate-animation-editor           #
 #*******************************************************************************#
-#  Copyright (c) 2020 hoontee @ Iron Stag Games.                                #
+#  Copyright (c) 2021 hoontee @ Iron Stag Games.                                #
 #                                                                               #
 #  NMMC is free software: you can redistribute it and/or modify                 #
 #  it under the terms of the GNU Affero General Public License as published by  #
@@ -34,42 +34,6 @@ const spinner_icons := [
 	preload("icon_progress_7.svg"),
 	preload("icon_progress_8.svg")
 ]
-const joint_maps := {
-	"Chest":			"bone_root",
-	"Head":				"bone_neck",
-	"Left_Shoulder":	"bone_left_shoulder",
-	"Left_Elbow":		"bone_left_upper_arm",
-	"Left_Wrist":		"bone_left_forearm",
-	"Left_Hand":		"bone_left_hand",
-	"Left_Knee":		"bone_left_thigh",
-	"Left_Ankle":		"bone_left_shin",
-	"Left_Foot":		"bone_left_foot",
-	"Right_Shoulder":	"bone_right_shoulder",
-	"Right_Elbow":		"bone_right_upper_arm",
-	"Right_Wrist":		"bone_right_forearm",
-	"Right_Hand":		"bone_right_hand",
-	"Right_Knee":		"bone_right_thigh",
-	"Right_Ankle":		"bone_right_shin",
-	"Right_Foot":		"bone_right_foot"
-}
-const joint_connections := {
-	"Chest":			"Pelvis",
-	"Head":				"Neck",
-	"Left_Shoulder":	"Chest",
-	"Left_Elbow":		"Left_Shoulder",
-	"Left_Wrist":		"Left_Elbow",
-	"Left_Hand":		"Left_Wrist",
-	"Left_Knee":		"Left_Hip",
-	"Left_Ankle":		"Left_Knee",
-	"Left_Foot":		"Left_Ankle",
-	"Right_Shoulder":	"Chest",
-	"Right_Elbow":		"Right_Shoulder",
-	"Right_Wrist":		"Right_Elbow",
-	"Right_Hand":		"Right_Wrist",
-	"Right_Knee":		"Right_Hip",
-	"Right_Ankle":		"Right_Knee",
-	"Right_Foot":		"Right_Ankle"
-}
 const bone_control_nodes := {
 	"Chest":			"Control_Torso",
 	"Head":				"Control_Torso",
@@ -99,6 +63,9 @@ const bone_rotations := {
 	"Right_Ankle": PI/2.0
 }
 
+var joint_maps := {}
+var joint_connections := {}
+
 var config := ConfigFile.new()
 var dock := preload("ni_mate_dock.escn").instance()
 var rig := dock.get_node("ViewportContainer/Viewport")
@@ -107,6 +74,7 @@ var pr := PacketReader.new()
 
 var ip := "127.0.0.1" setget set_ip
 var port := 7000 setget set_port
+var simple := false setget set_simple
 var rotate_hands_with_thumbs := false setget set_rotate_hands_with_thumbs
 var clamp_origin_x := false setget set_clamp_origin_x
 var clamp_origin_y := false setget set_clamp_origin_y
@@ -141,6 +109,7 @@ func _init() -> void:
 	if config.load("user://config.cfg") == OK:
 		ip = config.get_value("osc", "ip", ip)
 		port = int(config.get_value("osc", "port", port))
+		simple = bool(config.get_value("rig", "simple", simple))
 		rotate_hands_with_thumbs = bool(config.get_value("rig", "rotate_hands_with_thumbs", rotate_hands_with_thumbs))
 		clamp_origin_x = bool(config.get_value("rig", "clamp_origin_x", clamp_origin_x))
 		clamp_origin_y = bool(config.get_value("rig", "clamp_origin_y", clamp_origin_y))
@@ -151,6 +120,7 @@ func _init() -> void:
 		show_bone_axes = float(config.get_value("view", "show_bone_axes", show_bone_axes))
 	set_ip(ip, false)
 	set_port(port, false)
+	set_simple(simple, false)
 	set_rotate_hands_with_thumbs(rotate_hands_with_thumbs, false)
 	set_clamp_origin_x(clamp_origin_x, false)
 	set_clamp_origin_y(clamp_origin_y, false)
@@ -176,6 +146,21 @@ func _process(_delta) -> void:
 			var data := udp.get_packet()
 			var decoded := pr.decode_osc(data)
 			var joint_name := PoolByteArray(decoded[0]).get_string_from_utf8()
+			if simple:
+				if joint_name == "Pelvis" or joint_name == "Chest" or joint_name == "Left_Wrist" or joint_name == "Right_Wrist" or joint_name == "Left_Ankle" or joint_name == "Right_Ankle":
+					joint_name = "?"
+				elif joint_name == "Torso":
+					joint_name = "Pelvis"
+				elif joint_name == "Neck":
+					joint_name = "Chest"
+				elif joint_name == "Left_Hand":
+					joint_name = "Left_Wrist"
+				elif joint_name == "Right_Hand":
+					joint_name = "Right_Wrist"
+				elif joint_name == "Left_Foot":
+					joint_name = "Left_Ankle"
+				elif joint_name == "Right_Foot":
+					joint_name = "Right_Ankle"
 			var joint := rig.get_node_or_null(joint_name)
 			if joint_name.begins_with("@"):
 				# Ignored for now
@@ -272,9 +257,89 @@ func update_ip_port_text() -> void:
 	dock.get_node("MenuBar/Connect/ConfirmationDialog/HBoxContainer2/Port").text = str(port)
 	dock.get_node("MenuBar/Connect/AcceptDialog").dialog_text = "Failed to connect to OSC at " + ip + ":" + str(port)
 
+func set_simple(new_value := false, update_config := true) -> void:
+	simple = new_value
+	if simple:
+		set_rotate_hands_with_thumbs(false)
+		joint_maps = {
+			"Chest":			"bone_root",
+			"Head":				"bone_neck",
+			"Left_Shoulder":	"bone_left_shoulder",
+			"Left_Elbow":		"bone_left_upper_arm",
+			"Left_Wrist":		"bone_left_forearm",
+			"Left_Knee":		"bone_left_thigh",
+			"Left_Ankle":		"bone_left_shin",
+			"Right_Shoulder":	"bone_right_shoulder",
+			"Right_Elbow":		"bone_right_upper_arm",
+			"Right_Wrist":		"bone_right_forearm",
+			"Right_Knee":		"bone_right_thigh",
+			"Right_Ankle":		"bone_right_shin"
+		}
+		joint_connections = {
+			"Chest":			"Pelvis",
+			"Head":				"Chest",
+			"Left_Shoulder":	"Chest",
+			"Left_Elbow":		"Left_Shoulder",
+			"Left_Wrist":		"Left_Elbow",
+			"Left_Knee":		"Left_Hip",
+			"Left_Ankle":		"Left_Knee",
+			"Right_Shoulder":	"Chest",
+			"Right_Elbow":		"Right_Shoulder",
+			"Right_Wrist":		"Right_Elbow",
+			"Right_Knee":		"Right_Hip",
+			"Right_Ankle":		"Right_Knee"
+		}
+	else:
+		joint_maps = {
+			"Chest":			"bone_root",
+			"Head":				"bone_neck",
+			"Left_Shoulder":	"bone_left_shoulder",
+			"Left_Elbow":		"bone_left_upper_arm",
+			"Left_Wrist":		"bone_left_forearm",
+			"Left_Hand":		"bone_left_hand",
+			"Left_Knee":		"bone_left_thigh",
+			"Left_Ankle":		"bone_left_shin",
+			"Left_Foot":		"bone_left_foot",
+			"Right_Shoulder":	"bone_right_shoulder",
+			"Right_Elbow":		"bone_right_upper_arm",
+			"Right_Wrist":		"bone_right_forearm",
+			"Right_Hand":		"bone_right_hand",
+			"Right_Knee":		"bone_right_thigh",
+			"Right_Ankle":		"bone_right_shin",
+			"Right_Foot":		"bone_right_foot"
+		}
+		joint_connections = {
+			"Chest":			"Pelvis",
+			"Head":				"Neck",
+			"Left_Shoulder":	"Chest",
+			"Left_Elbow":		"Left_Shoulder",
+			"Left_Wrist":		"Left_Elbow",
+			"Left_Hand":		"Left_Wrist",
+			"Left_Knee":		"Left_Hip",
+			"Left_Ankle":		"Left_Knee",
+			"Left_Foot":		"Left_Ankle",
+			"Right_Shoulder":	"Chest",
+			"Right_Elbow":		"Right_Shoulder",
+			"Right_Wrist":		"Right_Elbow",
+			"Right_Hand":		"Right_Wrist",
+			"Right_Knee":		"Right_Hip",
+			"Right_Ankle":		"Right_Knee",
+			"Right_Foot":		"Right_Ankle"
+		}
+	rig.get_node("Neck").visible = not simple
+	rig.get_node("Left_Hand").visible = not simple
+	rig.get_node("Right_Hand").visible = not simple
+	rig.get_node("Left_Foot").visible = not simple
+	rig.get_node("Right_Foot").visible = not simple
+	dock.get_node("MenuBar/Rig").get_popup().set_item_disabled(1, simple)
+	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(0, simple)
+	if update_config:
+		save_config()
+
 func set_rotate_hands_with_thumbs(new_value := false, update_config := true) -> void:
 	rotate_hands_with_thumbs = new_value
 	if rotate_hands_with_thumbs:
+		set_simple(false)
 		bone_control_nodes["Left_Hand"] = "Left_Thumb"
 		bone_control_nodes["Right_Hand"] = "Right_Thumb"
 		bone_rotations["Left_Hand"] = 0
@@ -284,25 +349,26 @@ func set_rotate_hands_with_thumbs(new_value := false, update_config := true) -> 
 		bone_control_nodes["Right_Hand"] = "Control_Right_Arm"
 		bone_rotations["Left_Hand"] = -PI/2.0
 		bone_rotations["Right_Hand"] = -PI/2.0
-	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(0, rotate_hands_with_thumbs)
+	dock.get_node("MenuBar/Rig").get_popup().set_item_disabled(0, rotate_hands_with_thumbs)
+	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(1, rotate_hands_with_thumbs)
 	if update_config:
 		save_config()
 
 func set_clamp_origin_x(new_value := true, update_config := true) -> void:
 	clamp_origin_x = new_value
-	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(2, clamp_origin_x)
+	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(3, clamp_origin_x)
 	if update_config:
 		save_config()
 
 func set_clamp_origin_y(new_value := false, update_config := true) -> void:
 	clamp_origin_y = new_value
-	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(3, clamp_origin_y)
+	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(4, clamp_origin_y)
 	if update_config:
 		save_config()
 
 func set_clamp_origin_z(new_value := true, update_config := true) -> void:
 	clamp_origin_z = new_value
-	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(4, clamp_origin_z)
+	dock.get_node("MenuBar/Rig").get_popup().set_item_checked(5, clamp_origin_z)
 	if update_config:
 		save_config()
 
@@ -343,6 +409,7 @@ func save_config() -> void:
 	config.load("user://config.cfg")
 	config.set_value("osc", "ip", ip)
 	config.set_value("osc", "port", port)
+	config.set_value("rig", "simple", simple)
 	config.set_value("rig", "rotate_hands_with_thumbs", rotate_hands_with_thumbs)
 	config.set_value("rig", "clamp_origin_x", clamp_origin_x)
 	config.set_value("rig", "clamp_origin_y", clamp_origin_y)
@@ -401,14 +468,16 @@ func clear() -> void:
 func rig_id_pressed(id: int) -> void:
 	match id:
 		0:
+			set_simple(not simple)
+		1:
 			set_rotate_hands_with_thumbs(not rotate_hands_with_thumbs)
-		2:
-			set_clamp_origin_x(not clamp_origin_x)
 		3:
-			set_clamp_origin_y(not clamp_origin_y)
+			set_clamp_origin_x(not clamp_origin_x)
 		4:
+			set_clamp_origin_y(not clamp_origin_y)
+		5:
 			set_clamp_origin_z(not clamp_origin_z)
-		6:
+		7:
 			dock.get_node("MenuBar/Rig/ConfirmationDialog").popup()
 
 func view_id_pressed(id: int) -> void:

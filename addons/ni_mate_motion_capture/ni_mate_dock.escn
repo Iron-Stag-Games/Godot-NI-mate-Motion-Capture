@@ -37,7 +37,7 @@ size_flags_horizontal = 3
 margin_right = 31.0
 margin_bottom = 25.0
 text = "Rig"
-items = [ "Rotate Hands With Thumbs", null, 1, false, false, 0, 0, null, "", false, "", null, 0, false, false, 1, 0, null, "", true, "Clamp Origin X", null, 1, true, false, 2, 0, null, "", false, "Clamp Origin Y", null, 1, false, false, 3, 0, null, "", false, "Clamp Origin Z", null, 1, true, false, 4, 0, null, "", false, "", null, 0, false, false, 5, 0, null, "", true, "Height Offset...", null, 0, false, false, 6, 0, null, "", false ]
+items = [ "Simple", null, 1, false, false, 0, 0, null, "", false, "Rotate Hands With Thumbs", null, 1, false, false, 1, 0, null, "", false, "", null, 0, false, false, 2, 0, null, "", true, "Clamp Origin X", null, 1, true, false, 3, 0, null, "", false, "Clamp Origin Y", null, 1, false, false, 4, 0, null, "", false, "Clamp Origin Z", null, 1, true, false, 5, 0, null, "", false, "", null, 0, false, false, 6, 0, null, "", true, "Height Offset...", null, 0, false, false, 7, 0, null, "", false ]
 switch_on_hover = true
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="MenuBar/Rig"]
