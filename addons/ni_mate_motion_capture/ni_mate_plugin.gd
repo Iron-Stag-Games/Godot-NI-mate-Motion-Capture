@@ -3,7 +3,7 @@
 #*******************************************************************************#
 #                             This file is part of:                             #
 #                            NI MATE MOTION CAPTURE                             #
-#           https://github.com/hoontee/godot-ni-mate-animation-editor           #
+#        https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture        #
 #*******************************************************************************#
 #  Copyright (c) 2021 hoontee @ Iron Stag Games.                                #
 #                                                                               #
