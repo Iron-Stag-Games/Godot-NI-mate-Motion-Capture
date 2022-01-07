@@ -6,13 +6,15 @@ Add an NImate node to the scene to begin - its variables should be self-explanat
 
 Requires Delicode NI mate. Use default settings with skeleton tracking enabled.
 
-## Delicode NI mate Downloads
+## Delicode NI mate Installers
 
-Windows / macOS - https://ni-mate.com/download/
+Windows - [Delicode_NI_mate_v2.14_Installer.exe](https://github.com/hoontee/godot-ni-mate-motion-capture/raw/master/ni-mate-installers/Delicode_NI_mate_v2.14_Installer.exe)
 
-Ubuntu 64-bit - https://ni-mate.com/release/1.20/Delicode-NI-mate_1.20-ubuntu_amd64.deb
+macOS - [Delicode_NI_mate_v2.14.dmg](https://github.com/hoontee/godot-ni-mate-motion-capture/raw/master/ni-mate-installers/Delicode_NI_mate_v2.14.dmg)
 
-Ubuntu 32-bit - https://ni-mate.com/release/1.20/Delicode-NI-mate_1.20-ubuntu_i386.deb
+Ubuntu 64-bit - [Delicode-NI-mate_1.20-ubuntu_amd64.deb](https://github.com/hoontee/godot-ni-mate-motion-capture/raw/master/ni-mate-installers/Delicode-NI-mate_1.20-ubuntu_amd64.deb)
+
+Ubuntu 32-bit - [Delicode-NI-mate_1.20-ubuntu_i386.deb](https://github.com/hoontee/godot-ni-mate-motion-capture/raw/master/ni-mate-installers/Delicode-NI-mate_1.20-ubuntu_i386.deb)
 
 ## Sensor Compatibility
 
