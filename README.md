@@ -8,13 +8,13 @@ Requires Delicode NI mate. Use default settings with skeleton tracking enabled.
 
 ## Delicode NI mate Installers
 
-Windows - [Delicode_NI_mate_v2.14_Installer.exe](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/raw/master/ni-mate-installers/Delicode_NI_mate_v2.14_Installer.exe)
+Windows - [Delicode_NI_mate_v2.14_Installer.exe](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/raw/master/ni_mate_installers/Delicode_NI_mate_v2.14_Installer.exe)
 
-macOS - [Delicode_NI_mate_v2.14.dmg](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/raw/master/ni-mate-installers/Delicode_NI_mate_v2.14.dmg)
+macOS - [Delicode_NI_mate_v2.14.dmg](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/raw/master/ni_mate_installers/Delicode_NI_mate_v2.14.dmg)
 
-Ubuntu 64-bit - [Delicode-NI-mate_1.20-ubuntu_amd64.deb](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/raw/master/ni-mate-installers/Delicode-NI-mate_1.20-ubuntu_amd64.deb)
+Ubuntu 64-bit - [Delicode-NI-mate_1.20-ubuntu_amd64.deb](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/raw/master/ni_mate_installers/Delicode-NI-mate_1.20-ubuntu_amd64.deb)
 
-Ubuntu 32-bit - [Delicode-NI-mate_1.20-ubuntu_i386.deb](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/raw/master/ni-mate-installers/Delicode-NI-mate_1.20-ubuntu_i386.deb)
+Ubuntu 32-bit - [Delicode-NI-mate_1.20-ubuntu_i386.deb](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/raw/master/ni_mate_installers/Delicode-NI-mate_1.20-ubuntu_i386.deb)
 
 ## Sensor Compatibility
 

@@ -6,5 +6,5 @@ axes.png export-ignore
 icon.png export-ignore
 recalculate_roll.png export-ignore
 simple.png export-ignore
-ni-mate-installers export-ignore
-ni-mate-installers/** filter=lfs diff=lfs merge=lfs -text
+ni_mate_installers export-ignore
+ni_mate_installers/** filter=lfs diff=lfs merge=lfs -text
