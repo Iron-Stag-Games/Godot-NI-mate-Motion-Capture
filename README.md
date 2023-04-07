@@ -1,4 +1,5 @@
-#### I intend to make this plugin 100% stable and feature-complete for its users! Please [report bugs or ask questions about usability](https://github.com/Iron-Stag-Games/Godot-NI-mate-Motion-Capture/issues) and a response will be made within a day of posting.
+<p align="center">Discontinued!!!</p>
+<p align="center">Godot 3x Only. Please use a third party motion capture tool for newer versions of Godot.<p>
 
 # NI mate Motion Capture
 
