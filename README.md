@@ -1,5 +1,7 @@
-<p align="center">Discontinued!!!</p>
-<p align="center">Godot 3x Only. Please use a third party motion capture tool for newer versions of Godot.<p>
+> **Warning**
+> This tool is discontinued.
+>
+> Godot 3.x Only. Please use a third party motion capture tool for newer versions of Godot.
 
 # NI mate Motion Capture
 
